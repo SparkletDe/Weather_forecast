@@ -44,17 +44,20 @@ class MainActivity : AppCompatActivity() {
 
     fun printWeather(){
         binding.today.setOnClickListener {
+            if (arrayList.isNotEmpty()) {
                 binding.textDay.text = "Day ${arrayList[0]}"
                 binding.textNight.text = "Night ${arrayList[1]}"
-               // binding.textWeather.text = "Today is ${arrayList[4]}"
-
+                // binding.textWeather.text = "Today is ${arrayList[4]}"
+            }
         }
 
 
         binding.tomorrow.setOnClickListener {
-            binding.textDay.text = "Day ${arrayList[2]}"
-            binding.textNight.text = "Night ${arrayList[3]}"
-            // binding.textWeather.text = ""
+            if (arrayList.isNotEmpty()) {
+                binding.textDay.text = "Day ${arrayList[2].toString()}"
+                binding.textNight.text = "Night ${arrayList[3].toString()}"
+                // binding.textWeather.text = ""
+            }
         }
     }
 
@@ -78,7 +81,6 @@ class MainActivity : AppCompatActivity() {
 
     fun update(){
         lifecycleScope.launch(Dispatchers.IO) {
-            delay(1500)
             try {
                 var doc =
                     Jsoup.connect("https://www.gismeteo.ru/weather-frankfurt-am-main-2589/").get()
